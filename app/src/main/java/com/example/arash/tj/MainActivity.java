@@ -8,6 +8,7 @@ import java.util.Objects;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.DownloadManager;
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.graphics.Bitmap;
@@ -15,16 +16,22 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Picture;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
+import android.util.Base64;
 import android.util.Log;
 import android.util.SparseArray;
+import android.view.Display;
 import android.view.Menu;
 import android.view.View;
+import android.view.WindowManager;
 import android.webkit.ConsoleMessage;
+import android.webkit.DownloadListener;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebChromeClient;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
@@ -35,8 +42,6 @@ import android.widget.Toast;
 import com.google.android.gms.vision.Frame;
 import com.google.android.gms.vision.text.TextBlock;
 import com.google.android.gms.vision.text.TextRecognizer;
-import com.koushikdutta.async.future.FutureCallback;
-import com.koushikdutta.ion.Ion;
 
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
@@ -82,76 +87,69 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        String zart;
         webView = (WebView) findViewById(R.id.web1);
         webView.loadUrl("http://enroll.azad.ac.ir/login.aspx");
         webView.getSettings().setJavaScriptEnabled(true);
+        webView.getSettings().setLoadWithOverviewMode(true);
+        webView.getSettings().setUseWideViewPort(true);
         webView.addJavascriptInterface(new MyJavaScriptInterface(), "HTMLOUT");
         webView.setWebViewClient(new WebViewClient() {
 
             public void onPageFinished(final WebView view, String url) {
+
+
+                injectScriptFile(view, "script.js"); // see below ...
+
+                // test if the script was loaded
+                view.loadUrl("javascript:setTimeout(test(), 500)");
                 // do your stuff here
-                webView.measure(View.MeasureSpec.makeMeasureSpec(
-                        View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED),
-                        View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
-                webView.layout((int) (0), 0, webView.getMeasuredWidth(),
-                        webView.getMeasuredHeight());
-                view.loadUrl("javascript:document.getElementById('TxtUserName').value = '"+user+"';" +
-                );
-                webView.setDrawingCacheEnabled(true);
-                webView.buildDrawingCache();
-                final Bitmap bm = Bitmap.createBitmap(webView.getMeasuredWidth(),
-                        webView.getMeasuredHeight(), Bitmap.Config.ARGB_8888);
 
-                Canvas bigcanvas = new Canvas(bm);
-                Paint paint = new Paint();
-                int iHeight = bm.getHeight();
-                bigcanvas.drawBitmap(bm, 0, iHeight, paint);
-                webView.draw(bigcanvas);
-                System.out.println("1111111111111111111111="
-                        + bigcanvas.getWidth());
-                System.out.println("22222222222222222222222="
-                        + bigcanvas.getHeight());
-
-                if (bm != null) {
-                    try {
-                        String path = Environment.getExternalStorageDirectory()
-                                .toString();
-                        OutputStream fOut = null;
-                        File file = new File(path, "/aaaa.png");
-                        fOut = new FileOutputStream(file);
-
-                        bm.compress(Bitmap.CompressFormat.PNG, 50, fOut);
-                        fOut.flush();
-                        fOut.close();
-                        bm.recycle();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
                 final Handler handler = new Handler();
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
+                        webView.measure(View.MeasureSpec.makeMeasureSpec(
+                                View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED),
+                                View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
+                        webView.layout(0, 0, webView.getMeasuredWidth(),
+                                webView.getMeasuredHeight());
+
+
+                        webView.setDrawingCacheEnabled(true);
+                        webView.buildDrawingCache();
+                        final Bitmap bm = Bitmap.createBitmap(webView.getMeasuredWidth(),
+                                webView.getMeasuredHeight(), Bitmap.Config.ARGB_8888);
+
+                        Canvas bigcanvas = new Canvas(bm);
+                        Paint paint = new Paint();
+                        int iHeight = bm.getHeight();
+                        bigcanvas.drawBitmap(bm, 0, iHeight, paint);
+                        webView.draw(bigcanvas);
+                        System.out.println("1111111111111111111111="
+                                + bigcanvas.getWidth());
+                        System.out.println("22222222222222222222222="
+                                + bigcanvas.getHeight());
+
                         String Captcha = TRecognize(bm);
-                        String user="9519910824";
-                        String pwd="13770021061963";
+                        if (Captcha == null || Captcha == "")
+                        {
+                            Captcha = "0";
+                        }
+                        String user="9419914254";
+                        String pwd="13760020276389";
                         view.loadUrl("javascript:document.getElementById('TxtUserName').value = '"+user+"';" +
                                 "document.getElementById('TxtPassWord').value='"+pwd+"';"+
-                                "document.getElementById('Txt_Captcha').value='"+Captcha+"';"+
-                                "document.getElementById('Button1').click();"
-                        );
+                                "document.getElementById('Txt_Captcha').value='"+ Captcha +"';"+
+                                "document.getElementById('Button1').click();" );
                     }
-                }, 5000);
-
-
-
-
-
+                }, 1000);
 
                 if (Objects.equals(webView.getUrl(), "http://enroll.azad.ac.ir/homepage.aspx"))
                 {
                     if (i == 0)
                     {
+                        Log.i("zart" , "zart");
                         webView.loadUrl("javascript:window.HTMLOUT.processHTML('<html>'+document.getElementsByTagName('html')[0].innerHTML+'</html>');");
                         i++;
                         setUserData();
@@ -159,28 +157,36 @@ public class MainActivity extends Activity {
                 }
                 else
                 {
-
+                Log.i("zart", "zart2");
 
                 }
-
-
             }
 
+            private void injectScriptFile(WebView view, String scriptFile) {
+                InputStream input;
+                try {
+                    input = getAssets().open(scriptFile);
+                    byte[] buffer = new byte[input.available()];
+                    input.read(buffer);
+                    input.close();
+
+                    // String-ify the script byte-array using BASE64 encoding !!!
+                    String encoded = Base64.encodeToString(buffer, Base64.NO_WRAP);
+                    view.loadUrl("javascript:(function() {" +
+                            "var parent = document.getElementsByTagName('head').item(0);" +
+                            "var script = document.createElement('script');" +
+                            "script.type = 'text/javascript';" +
+                            // Tell the browser to BASE64-decode the string into your script !!!
+                            "script.innerHTML = window.atob('" + encoded + "');" +
+                            "parent.appendChild(script)" +
+                            "})()");
+                } catch (IOException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+            }
         });
-
-
-
     }
-
-
-    @Override
-    public void onResume(){
-        super.onResume();
-
-        Log.i("sohrab" , "second");
-
-    }
-
 
     public String TRecognize(Bitmap bitmap)
     {
@@ -199,7 +205,8 @@ public class MainActivity extends Activity {
         return imageText;
     }
 
-    private class MyBrowser extends WebViewClient {
+    private class MyBrowser extends WebViewClient
+    {
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
             view.loadUrl(url);
@@ -209,7 +216,8 @@ public class MainActivity extends Activity {
         }
     }
 
-    private void getName(String Captcha) {
+    private void getName(String Captcha)
+    {
         String user="9519910824";
         String pwd="13770021061963";
         new Thread(new Runnable() {
@@ -249,11 +257,32 @@ public class MainActivity extends Activity {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-
-                TextView StudnetCodeText =(TextView)findViewById(R.id.StudnetCode);
-                StudnetCodeText.setText(StudentCode);
                 Toast.makeText(getApplicationContext()," خوش آمدید "+NameAsli,Toast.LENGTH_SHORT).show();
             }
         }, 1000);
     }
+
+
+
+
+
+
+/*                if (bm != null) {
+                    try {
+                        String path = Environment.getExternalStorageDirectory()
+                                .toString();
+                        OutputStream fOut = null;
+                        File file = new File(path, "/aaaa.png");
+                        fOut = new FileOutputStream(file);
+
+                        bm.compress(Bitmap.CompressFormat.PNG, 50, fOut);
+                        fOut.flush();
+                        fOut.close();
+                        bm.recycle();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }*/
+
+
 }

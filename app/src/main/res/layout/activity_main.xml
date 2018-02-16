@@ -4,31 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:visibility="visible"
     tools:context="com.example.arash.tj.MainActivity">
-
-    <TextView
-        android:id="@+id/StudnetCode"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_x="163dp"
-        android:layout_y="102dp"
-        android:text="TextView"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteY="79dp" />
 
     <WebView
         android:id="@+id/web1"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layoutDirection="rtl"
-        android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-    </WebView>
-
+        android:visibility="invisible"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="8dp" />
 </android.support.constraint.ConstraintLayout>
