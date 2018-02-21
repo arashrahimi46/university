@@ -1,0 +1,53 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/frame"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.arash.tj.StudentClassesFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ScrollView
+            android:id="@+id/layout"
+            android:layout_height="match_parent"
+            android:scrollbars="horizontal|vertical"
+            android:layout_width="match_parent"
+            android:scrollbarStyle="outsideInset"
+            android:fillViewport="true">
+
+            <HorizontalScrollView
+                android:id="@+id/horizontalView"
+                android:layout_height="wrap_content"
+                android:scrollbars="horizontal|vertical"
+                android:layout_width="wrap_content"
+               >
+
+                <TableLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/tlGridTable" >
+
+
+
+                </TableLayout>
+            </HorizontalScrollView>
+        </ScrollView>
+
+        <WebView
+            android:id="@+id/web3"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:visibility="invisible"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="8dp"
+            tools:layout_editor_absoluteY="8dp">
+
+        </WebView>
+    </android.support.constraint.ConstraintLayout>
+
+
+</FrameLayout>

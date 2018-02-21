@@ -11,15 +11,19 @@ import android.app.Activity;
 import android.app.DownloadManager;
 import android.content.Context;
 import android.content.ContextWrapper;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Picture;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
 import android.util.Log;
 import android.util.SparseArray;
@@ -36,6 +40,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -49,11 +54,12 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-public class MainActivity extends Activity {
+public class MainActivity extends AppCompatActivity {
 
     public  String BodyHtml;
     public String NameAsli;
     public String StudentCode;
+    ProgressBar prg;
     int i = 0;
     final Context myApp = this;
 
@@ -86,8 +92,27 @@ public class MainActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ActionBar m_myActionBar=getSupportActionBar();
 
-        String zart;
+        m_myActionBar.hide();
+
+        if (Build.VERSION.SDK_INT < 16) {
+            getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                    WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        }
+        else {
+            View decorView = getWindow().getDecorView();
+            // Hide Status Bar.
+            int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
+            decorView.setSystemUiVisibility(uiOptions);
+        }
+         prg = (ProgressBar)findViewById(R.id.progressBar3);
+    }
+
+
+    public void loginButton(View v)
+    {
+        prg.setVisibility(View.VISIBLE);
         webView = (WebView) findViewById(R.id.web1);
         webView.loadUrl("http://enroll.azad.ac.ir/login.aspx");
         webView.getSettings().setJavaScriptEnabled(true);
@@ -98,6 +123,12 @@ public class MainActivity extends Activity {
 
             public void onPageFinished(final WebView view, String url) {
 
+                EditText text1 = (EditText) findViewById(R.id.editText4);
+                EditText text2 = (EditText) findViewById(R.id.editText5);
+                final String pwd = text1.getText().toString();
+                final String user = text2.getText().toString();
+                Log.i("salam2" , user);
+                Log.i("salam2" , pwd);
 
                 injectScriptFile(view, "script.js"); // see below ...
 
@@ -136,10 +167,9 @@ public class MainActivity extends Activity {
                         {
                             Captcha = "0";
                         }
-                        String user="9419914254";
-                        String pwd="13760020276389";
-                        view.loadUrl("javascript:document.getElementById('TxtUserName').value = '"+user+"';" +
-                                "document.getElementById('TxtPassWord').value='"+pwd+"';"+
+
+                        view.loadUrl("javascript:document.getElementById('TxtUserName').value = '"+ user +"';" +
+                                "document.getElementById('TxtPassWord').value='"+ pwd +"';"+
                                 "document.getElementById('Txt_Captcha').value='"+ Captcha +"';"+
                                 "document.getElementById('Button1').click();" );
                     }
@@ -153,11 +183,12 @@ public class MainActivity extends Activity {
                         webView.loadUrl("javascript:window.HTMLOUT.processHTML('<html>'+document.getElementsByTagName('html')[0].innerHTML+'</html>');");
                         i++;
                         setUserData();
+
                     }
                 }
                 else
                 {
-                Log.i("zart", "zart2");
+                    Log.i("zart", "zart2");
 
                 }
             }
@@ -258,31 +289,15 @@ public class MainActivity extends Activity {
             @Override
             public void run() {
                 Toast.makeText(getApplicationContext()," خوش آمدید "+NameAsli,Toast.LENGTH_SHORT).show();
+
+
+                Intent myIntent = new Intent(MainActivity.this, FirstPage.class);
+                myIntent.putExtra("nam" , NameAsli); //Optional parameters
+                myIntent.putExtra("daneshjuyi" , StudentCode); //Optional parameters
+                MainActivity.this.startActivity(myIntent);
             }
         }, 1000);
     }
-
-
-
-
-
-
-/*                if (bm != null) {
-                    try {
-                        String path = Environment.getExternalStorageDirectory()
-                                .toString();
-                        OutputStream fOut = null;
-                        File file = new File(path, "/aaaa.png");
-                        fOut = new FileOutputStream(file);
-
-                        bm.compress(Bitmap.CompressFormat.PNG, 50, fOut);
-                        fOut.flush();
-                        fOut.close();
-                        bm.recycle();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }*/
 
 
 }

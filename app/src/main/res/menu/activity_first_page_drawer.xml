@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_camera"
+            android:icon="@drawable/classes2"
+            android:title="مشاهده انتخاب واحد" />
+        <item
+            android:id="@+id/nav_gallery"
+            android:icon="@drawable/personal_card"
+            android:title="شماره صندلی و کارت ورود به جلسه " />
+        <item
+            android:id="@+id/nav_slideshow"
+            android:icon="@drawable/schedule"
+            android:title="خلاصه وضعیت تحصیلی" />
+        <item
+            android:id="@+id/nav_manage"
+            android:icon="@drawable/contract"
+            android:title="گواهی اشتغال به تحصیل" />
+        <item
+            android:id="@+id/nav_share"
+            android:icon="@drawable/ic_menu_share"
+            android:title="اشتراک گذاری برنامه" />
+        <item
+            android:id="@+id/nav_send"
+            android:icon="@drawable/logout"
+            android:title="خروج" />
+    </group>
+
+    <item android:title="Communicate">
+        <menu></menu>
+    </item>
+
+</menu>
