@@ -8,6 +8,7 @@ import android.os.Handler;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,7 @@ import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.FrameLayout;
+import android.widget.HorizontalScrollView;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TableLayout;
@@ -89,6 +91,8 @@ public class StudentClassesFragment extends Fragment  {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
 
+        final HorizontalScrollView Scroll = (HorizontalScrollView) view.findViewById(R.id.scroll);
+
          tl = (TableLayout) view.findViewById(R.id.tlGridTable);
         final WebView webView;
         webView = (WebView) view.findViewById(R.id.web3);
@@ -109,23 +113,67 @@ public class StudentClassesFragment extends Fragment  {
             public void run() {
               System.out.println(pageCode);
 
+
               /* Find Tablelayout defined in main.xml */
 
+              Document PageHtml = Jsoup.parse(pageCode);
 
-/* Create a new row to be added. */
-                TableRow tr = new TableRow(getContext());
-                tr.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.FILL_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
-/* Create a Button to be the row-content. */
-                Button b = new Button(getContext());
-                b.setText("Dynamic Button");
-                b.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.FILL_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
-/* Add Button to row. */
-                tr.addView(b);
-/* Add row to TableLayout. */
-//tr.setBackgroundResource(R.drawable.sf_gradient_03);
-                tl.addView(tr, new TableLayout.LayoutParams(TableLayout.LayoutParams.FILL_PARENT, TableLayout.LayoutParams.WRAP_CONTENT));
+              Elements trs = PageHtml.getElementById("DataGrid2").getElementsByTag("tr");
 
+              int i = 0;
+                for (Element tr2 : trs)
+                {
+                    Elements tds = tr2.getElementsByTag("td");
+                    TableRow tr = new TableRow(getContext());
+                    tr.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.FILL_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
+                    tr.setPadding(24 , 24 , 24 ,24);
+                    if ( i == 0)
+                    {
+                        tr.setBackgroundColor(Color.parseColor("#303F9F"));
+                    }
+                    else
+                    {
+                        if (i%2 == 0)
+                        {
+                            tr.setBackgroundColor(Color.parseColor("#eeeeee"));
+                        }
+                        else
+                        {
+                            tr.setBackgroundColor(Color.parseColor("#FFFFFF"));
+                        }
+                    }
+                    for (Element td : tds)
+                    {
 
+                        String tdText = td.text();
+                        TextView tdTextView = new TextView(getContext());
+                        tdTextView.setText(tdText);
+                        TableRow.LayoutParams lp = new TableRow.LayoutParams(TableRow.LayoutParams.FILL_PARENT, TableRow.LayoutParams.WRAP_CONTENT);
+                        lp.setMargins(100, 4 ,8 , 4);
+                        tdTextView.setLayoutParams(lp);
+                        tdTextView.setPadding(8 , 8 , 8 ,8);
+                        tdTextView.setTextSize(16);
+                        tdTextView.setGravity(Gravity.CENTER);
+                        if (i == 0)
+                        {
+                            tdTextView.setTextColor(Color.parseColor("#FFFFFF"));
+                        }
+                        else
+                        {
+                            tdTextView.setTextColor(Color.parseColor("#000000"));
+                        }
+
+                        tr.addView(tdTextView);
+                    }
+                    /* Create a new row to be added. */
+                    tl.addView(tr, new TableLayout.LayoutParams(TableLayout.LayoutParams.FILL_PARENT, TableLayout.LayoutParams.WRAP_CONTENT));
+                    i++;
+                }
+                Scroll.postDelayed(new Runnable() {
+                    public void run() {
+                        Scroll.fullScroll(HorizontalScrollView.FOCUS_RIGHT);
+                    }
+                }, 100L);
             }
         }, 2000);
 

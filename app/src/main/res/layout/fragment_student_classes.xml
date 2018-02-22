@@ -12,28 +12,45 @@
         android:layout_height="match_parent">
 
         <ScrollView
-            android:id="@+id/layout"
-            android:layout_height="match_parent"
-            android:scrollbars="horizontal|vertical"
             android:layout_width="match_parent"
-            android:scrollbarStyle="outsideInset"
-            android:fillViewport="true">
+            android:layout_height="match_parent"
+            android:foregroundGravity="right"
+            android:scrollbars="none"
+            >
 
             <HorizontalScrollView
-                android:id="@+id/horizontalView"
+                android:id="@+id/scroll"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:scrollbars="horizontal|vertical"
-                android:layout_width="wrap_content"
-               >
+                android:layout_gravity="right"
+                android:scrollbars="none"
+                android:foregroundGravity="right">
 
                 <TableLayout
-                    android:layout_width="match_parent"
+                    android:id="@+id/tlGridTable"
+                    android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:id="@+id/tlGridTable" >
+                    android:foregroundGravity="right"
+                    tools:layout_editor_absoluteX="8dp"
+                    tools:layout_editor_absoluteY="8dp">
 
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
 
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
 
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
                 </TableLayout>
+
             </HorizontalScrollView>
         </ScrollView>
 

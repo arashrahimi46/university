@@ -78,7 +78,6 @@ public class MainActivity extends AppCompatActivity {
             Document firstPage = Jsoup.parse(html);
             Element nam = firstPage.getElementById("lbl_NameFamily");
             Element Stdcode = firstPage.getElementById("Lbl_Reg_No");
-
                 NameAsli = nam.text();
                 StudentCode= Stdcode.text();
         }

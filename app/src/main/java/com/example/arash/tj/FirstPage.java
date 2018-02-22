@@ -1,20 +1,14 @@
 package com.example.arash.tj;
 
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.BitmapShader;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -23,35 +17,18 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Transformation;
-
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
-
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
-import java.net.URLConnection;
-import java.util.Objects;
 
 public class FirstPage extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -150,7 +127,7 @@ public class FirstPage extends AppCompatActivity
                 String imageUri = UserImageString;
                 Picasso.with(FirstPage.this).load(imageUri).resize(120 , 120).transform(new CircleTransform()).into(userImage);
             }
-        }, 5000);
+        }, 2000);
     }
 
     @Override
@@ -173,20 +150,31 @@ public class FirstPage extends AppCompatActivity
 
         FragmentTransaction ft2 = getSupportFragmentManager().beginTransaction();
 
-        if (id == R.id.nav_camera) {
+        if (id == R.id.student_classes) {
             ft2.replace(R.id.your_placeholder, new StudentClassesFragment());
             ft2.addToBackStack(null);
             ft2.commit();
-        } else if (id == R.id.nav_gallery) {
+        } else if (id == R.id.chair_and_card) {
 
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.summary) {
 
-        } else if (id == R.id.nav_manage) {
+        } else if (id == R.id.govahi) {
+            ft2.replace(R.id.your_placeholder, new GovahiEshteghal());
+            ft2.addToBackStack(null);
+            ft2.commit();
 
-        } else if (id == R.id.nav_share) {
+        } else if (id == R.id.share) {
 
-        } else if (id == R.id.nav_send) {
+        } else if (id == R.id.exit) {
 
+        }else if (id == R.id.message)
+        {
+
+        }else if (id == R.id.home)
+        {
+            ft2.replace(R.id.your_placeholder, new StudentDataFragment());
+            ft2.addToBackStack(null);
+            ft2.commit();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
