@@ -5,27 +5,41 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_camera"
+            android:id="@+id/home"
+            android:title="صفحه اصلی"
+            android:icon="@drawable/home"
+            />
+        <item
+            android:id="@+id/notif"
+            android:title="اعلان ها"
+            android:icon="@drawable/megaphone"
+            />
+        <item
+            android:id="@+id/message"
+            android:icon="@drawable/envelope"
+            android:title="پیام ها" />
+        <item
+            android:id="@+id/student_classes"
             android:icon="@drawable/classes2"
             android:title="مشاهده انتخاب واحد" />
         <item
-            android:id="@+id/nav_gallery"
+            android:id="@+id/chair_and_card"
             android:icon="@drawable/personal_card"
             android:title="شماره صندلی و کارت ورود به جلسه " />
         <item
-            android:id="@+id/nav_slideshow"
+            android:id="@+id/summary"
             android:icon="@drawable/schedule"
             android:title="خلاصه وضعیت تحصیلی" />
         <item
-            android:id="@+id/nav_manage"
+            android:id="@+id/govahi"
             android:icon="@drawable/contract"
             android:title="گواهی اشتغال به تحصیل" />
         <item
-            android:id="@+id/nav_share"
+            android:id="@+id/share"
             android:icon="@drawable/ic_menu_share"
             android:title="اشتراک گذاری برنامه" />
         <item
-            android:id="@+id/nav_send"
+            android:id="@+id/exit"
             android:icon="@drawable/logout"
             android:title="خروج" />
     </group>
