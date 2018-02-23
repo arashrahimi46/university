@@ -47,6 +47,7 @@ import android.widget.Toast;
 import com.google.android.gms.vision.Frame;
 import com.google.android.gms.vision.text.TextBlock;
 import com.google.android.gms.vision.text.TextRecognizer;
+import com.onesignal.OneSignal;
 
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
@@ -90,10 +91,16 @@ public class MainActivity extends AppCompatActivity {
     @SuppressLint("JavascriptInterface")
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        OneSignal.startInit(this)
+                .inFocusDisplaying(OneSignal.OSInFocusDisplayOption.Notification)
+                .unsubscribeWhenNotificationsAreDisabled(true)
+                .init();
+
         setContentView(R.layout.activity_main);
         ActionBar m_myActionBar=getSupportActionBar();
 
         m_myActionBar.hide();
+
 
         if (Build.VERSION.SDK_INT < 16) {
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,

@@ -1,8 +1,21 @@
+plugins {
+    id 'com.onesignal.androidsdk.onesignal-gradle-plugin' version '0.8.1'
+}
+apply plugin: 'com.onesignal.androidsdk.onesignal-gradle-plugin'
+
+repositories {
+    maven { url 'https://maven.google.com' }
+}
 apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 26
     defaultConfig {
+
+        manifestPlaceholders = [onesignal_app_id: "c529e092-07f6-4808-95b9-4cf9d1327594",
+                                // Project number pulled from dashboard, local value is ignored.
+                                onesignal_google_project_number: "REMOTE"]
+
         applicationId "com.example.arash.tj"
         minSdkVersion 21
         targetSdkVersion 26
@@ -31,5 +44,5 @@ dependencies {
     compile 'com.google.android.gms:play-services-vision:9.2.0'
     implementation 'com.android.support:cardview-v7:26.1.0'
     compile 'com.squareup.picasso:picasso:2.5.2'
-
+    compile 'com.onesignal:OneSignal:[3.7.1, 3.99.99]'
 }
