@@ -12,7 +12,7 @@ android {
     compileSdkVersion 26
     defaultConfig {
 
-        manifestPlaceholders = [onesignal_app_id: "c529e092-07f6-4808-95b9-4cf9d1327594",
+        manifestPlaceholders = [onesignal_app_id               : "c529e092-07f6-4808-95b9-4cf9d1327594",
                                 // Project number pulled from dashboard, local value is ignored.
                                 onesignal_google_project_number: "REMOTE"]
 
@@ -31,7 +31,9 @@ android {
     }
 }
 
+
 dependencies {
+
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'com.android.support:appcompat-v7:26.1.0'
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
