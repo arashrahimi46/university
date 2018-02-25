@@ -1,15 +1,24 @@
 package com.example.arash.tj;
 
+import android.app.ActionBar;
+import android.app.Activity;
 import android.content.Intent;
+import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapShader;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.TypefaceSpan;
 import android.util.Log;
+import android.view.Menu;
+import android.view.SubMenu;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -28,7 +37,10 @@ import com.squareup.picasso.Transformation;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+
+import java.lang.reflect.Field;
 import java.net.URL;
+import java.util.Locale;
 
 public class FirstPage extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -45,6 +57,7 @@ public class FirstPage extends AppCompatActivity
     String UserImageString;
     Fragment newFragment = new StudentDataFragment();
     FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+
 
     TextView StudentDrawerName;
     class MyJavaScriptInterface
@@ -77,8 +90,25 @@ public class FirstPage extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_first_page);
+        final Typeface custom_font = Typeface.createFromAsset(getAssets(),  "fonts/IRANSansMobile.ttf");
+
+
+
+
+        // Update the action bar title with the TypefaceSpan instance
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        TextView yourTextView = null;
+        try {
+            Field f = toolbar.getClass().getDeclaredField("mTitleTextView");
+            f.setAccessible(true);
+            yourTextView = (TextView) f.get(toolbar);
+            yourTextView.setTypeface(custom_font);
+        } catch (NoSuchFieldException e) {
+        } catch (IllegalAccessException e) {
+        }
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -88,23 +118,32 @@ public class FirstPage extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
         View headerView = navigationView.getHeaderView(0);
         StudentDrawerName = (TextView)headerView.findViewById(R.id.StudentDrawerName);
+        TextView UniversityDrawerName = (TextView)headerView.findViewById(R.id.uniName);
         userImage = (ImageView)headerView.findViewById(R.id.userImage);
         ft.replace(R.id.your_placeholder, new StudentDataFragment());
         ft.addToBackStack(null);
         ft.commit();
-
         Intent intent = getIntent();
         final String StudnetNameString = intent.getStringExtra("nam");
         final String StudentCodeString = intent.getStringExtra("daneshjuyi");
 
+        Menu m = navigationView.getMenu();
+        for (int i=0;i<m.size();i++) {
+            MenuItem mi = m.getItem(i);
+            //for aapplying a font to subMenu ...
+            SubMenu subMenu = mi.getSubMenu();
+            if (subMenu!=null && subMenu.size() >0 ) {
+                for (int j=0; j <subMenu.size();j++) {
+                    MenuItem subMenuItem = subMenu.getItem(j);
+                    applyFontToMenuItem(subMenuItem);
+                }
+            }
 
+            //the method we have create in activity
+            applyFontToMenuItem(mi);
+        }
 
-
-
-       /* StudentName = (TextView)findViewById(R.id.studnetName);
-        StudentFather = (TextView)findViewById(R.id.studentFather);
-        StudentMajor = (TextView)findViewById(R.id.studentMajor);
-        StudentCode = (TextView)findViewById(R.id.studentCode); */
+        UniversityDrawerName.setTypeface(custom_font);
 
         webView = (WebView) findViewById(R.id.web2);
         webView.loadUrl("http://enroll.azad.ac.ir/pages/frm_viewsabtenam.aspx");
@@ -123,6 +162,7 @@ public class FirstPage extends AppCompatActivity
             @Override
             public void run() {
                 StudentDrawerName.setText(StudnetNameString);
+                StudentDrawerName.setTypeface(custom_font);
                 URL url = null;
                 String imageUri = UserImageString;
                 Picasso.with(FirstPage.this).load(imageUri).resize(120 , 120).transform(new CircleTransform()).into(userImage);
@@ -180,6 +220,13 @@ public class FirstPage extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void applyFontToMenuItem(MenuItem mi) {
+        Typeface font = Typeface.createFromAsset(getAssets(), "fonts/IRANSansMobile.ttf");
+        SpannableString mNewTitle = new SpannableString(mi.getTitle());
+        mNewTitle.setSpan(new CustomTypefaceSpan("" , font), 0 , mNewTitle.length(),  Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+        mi.setTitle(mNewTitle);
     }
 }
 

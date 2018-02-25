@@ -1,59 +1,44 @@
 package com.example.arash.tj;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.Objects;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
-import android.app.DownloadManager;
 import android.content.Context;
-import android.content.ContextWrapper;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
-import android.graphics.Picture;
-import android.net.Uri;
+import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.Handler;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
 import android.util.Log;
 import android.util.SparseArray;
-import android.view.Display;
-import android.view.Menu;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.webkit.ConsoleMessage;
-import android.webkit.DownloadListener;
 import android.webkit.JavascriptInterface;
-import android.webkit.WebChromeClient;
-import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.google.android.gms.vision.Frame;
 import com.google.android.gms.vision.text.TextBlock;
 import com.google.android.gms.vision.text.TextRecognizer;
 import com.onesignal.OneSignal;
-
-import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -63,6 +48,10 @@ public class MainActivity extends AppCompatActivity {
     ProgressBar prg;
     int i = 0;
     final Context myApp = this;
+    Button loginbtn;
+
+    CheckBox checkBox;
+    Typeface custom_font ;
 
     /* An instance of this class will be registered as a JavaScript interface */
     class MyJavaScriptInterface
@@ -100,8 +89,12 @@ public class MainActivity extends AppCompatActivity {
         ActionBar m_myActionBar=getSupportActionBar();
 
         m_myActionBar.hide();
+          custom_font = Typeface.createFromAsset(getAssets(),  "fonts/IRANSansMobile.ttf");
 
-
+        loginbtn= (Button)findViewById(R.id.button3);
+        checkBox = (CheckBox) findViewById(R.id.checkBox);
+        checkBox.setTypeface(custom_font);
+        loginbtn.setTypeface(custom_font);
         if (Build.VERSION.SDK_INT < 16) {
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                     WindowManager.LayoutParams.FLAG_FULLSCREEN);
@@ -242,51 +235,6 @@ public class MainActivity extends AppCompatActivity {
         return imageText;
     }
 
-    private class MyBrowser extends WebViewClient
-    {
-        @Override
-        public boolean shouldOverrideUrlLoading(WebView view, String url) {
-            view.loadUrl(url);
-            currentUrl= url;
-            Log.i("zarch" , currentUrl);
-            return true;
-        }
-    }
-
-    private void getName(String Captcha)
-    {
-        String user="9519910824";
-        String pwd="13770021061963";
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                final StringBuilder builder = new StringBuilder();
-
-                try {
-                    Document doc = Jsoup.connect("http://enroll.azad.ac.ir/homepage.aspx").get();
-                    String title = doc.title();
-                    Elements links = doc.select("a[href]");
-
-                    builder.append(title).append("\n");
-
-                    for (Element link : links) {
-                        builder.append("\n").append("Link : ").append(link.attr("href"))
-                                .append("\n").append("Text : ").append(link.text());
-                    }
-                } catch (IOException e) {
-                    builder.append("Error : ").append(e.getMessage()).append("\n");
-                }
-
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        System.out.println(builder.toString());
-
-                    }
-                });
-            }
-        }).start();
-    }
 
     public void setUserData()
     {
@@ -294,7 +242,20 @@ public class MainActivity extends AppCompatActivity {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                Toast.makeText(getApplicationContext()," خوش آمدید "+NameAsli,Toast.LENGTH_SHORT).show();
+
+                LayoutInflater inflater = getLayoutInflater();
+                View layout = inflater.inflate(R.layout.custom_toast,
+                        (ViewGroup) findViewById(R.id.container));
+
+                TextView text = (TextView) layout.findViewById(R.id.text);
+                text.setText(" خوش آمدید "+NameAsli);
+
+                text.setTypeface(custom_font);
+                Toast toast = new Toast(getApplicationContext());
+                toast.setGravity(Gravity.BOTTOM , 0, 0);
+                toast.setDuration(Toast.LENGTH_LONG);
+                toast.setView(layout);
+                toast.show();
 
 
                 Intent myIntent = new Intent(MainActivity.this, FirstPage.class);

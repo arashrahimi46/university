@@ -25,7 +25,7 @@
         <item
             android:id="@+id/chair_and_card"
             android:icon="@drawable/personal_card"
-            android:title="شماره صندلی و کارت ورود به جلسه " />
+            android:title="شماره صندلی و نمرات " />
         <item
             android:id="@+id/summary"
             android:icon="@drawable/schedule"

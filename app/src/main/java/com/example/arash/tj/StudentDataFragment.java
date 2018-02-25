@@ -3,6 +3,7 @@ package com.example.arash.tj;
 
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -19,6 +20,7 @@ import android.webkit.JavascriptInterface;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
@@ -46,6 +48,7 @@ public class StudentDataFragment extends Fragment  {
     String StudentMajorString;
     String UserImageString;
 
+    ProgressBar prg;
     TextView StudentDrawerName;
     class MyJavaScriptInterface
     {
@@ -73,11 +76,14 @@ public class StudentDataFragment extends Fragment  {
     }
 
     WebView webView;
+    Typeface font ;
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
         // Defines the xml file for the fragment
+        font = Typeface.createFromAsset(getActivity().getAssets(), "fonts/IRANSansMobile.ttf");
+
         return inflater.inflate(R.layout.student_data_fragment, parent, false);
     }
 
@@ -89,6 +95,23 @@ public class StudentDataFragment extends Fragment  {
         StudentFather = (TextView)view.findViewById(R.id.studentFather);
         StudentMajor = (TextView)view.findViewById(R.id.studentMajor);
         StudentCode = (TextView)view.findViewById(R.id.studentCode);
+
+        prg = (ProgressBar)view.findViewById(R.id.progressBar3);
+        TextView t1 = (TextView)view.findViewById(R.id.t1);
+        TextView t2 = (TextView)view.findViewById(R.id.t2);
+        TextView t3= (TextView)view.findViewById(R.id.t3);
+        TextView t4 = (TextView)view.findViewById(R.id.t4);
+
+        StudentName.setTypeface(font);
+        StudentFather.setTypeface(font);
+        StudentMajor.setTypeface(font);
+        StudentCode.setTypeface(font);
+
+        t1.setTypeface(font);
+        t2.setTypeface(font);
+        t3.setTypeface(font);
+        t4.setTypeface(font);
+
         webView = (WebView) view.findViewById(R.id.web1);
         webView.loadUrl("http://enroll.azad.ac.ir/pages/frm_viewsabtenam.aspx");
         webView.getSettings().setJavaScriptEnabled(true);
@@ -108,10 +131,12 @@ public class StudentDataFragment extends Fragment  {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
+
                 StudentName.setText(StudnetNameString);
                 StudentFather.setText(StudentFatherString);
                 StudentCode.setText(StudentCodeString);
                 StudentMajor.setText(StudentMajorString);
+                prg.setVisibility(View.INVISIBLE);
             }
         }, 5000);
 

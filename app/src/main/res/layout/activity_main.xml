@@ -27,9 +27,11 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_margin="16dp"
+        android:layout_marginTop="16dp"
         android:alpha="10"
         android:background="#fff"
         android:elevation="24dp"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -38,13 +40,14 @@
             android:id="@+id/editText4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="28dp"
+            android:layout_marginBottom="20dp"
             android:ems="10"
             android:gravity="right"
             android:hint="رمز عبور"
             android:inputType="textPassword"
-            android:text="13760020276389"
-            app:layout_constraintBottom_toTopOf="@+id/button3"
+            android:layoutDirection="ltr"
+            android:text="13770021061963"
+            app:layout_constraintBottom_toTopOf="@+id/checkBox"
             app:layout_constraintHorizontal_bias="0.503"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent" />
@@ -59,7 +62,8 @@
             android:gravity="right"
             android:hint="شماره دانشجویی"
             android:inputType="phone"
-            android:text="9419914254"
+            android:layoutDirection="ltr"
+            android:text="9519910824"
             app:layout_constraintBottom_toTopOf="@+id/editText4"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.534"
@@ -68,13 +72,15 @@
 
         <Button
             android:id="@+id/button3"
-            android:layout_width="wrap_content"
+            android:layout_width="204dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp"
+            android:layout_marginBottom="16dp"
             android:background="#2e3876"
             android:onClick="loginButton"
+            android:padding="8dp"
             android:text="ورود به سیستم"
             android:textColor="#fff"
+            android:textSize="18sp"
             app:layout_constraintBottom_toTopOf="@+id/progressBar3"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent" />
@@ -82,14 +88,10 @@
         <ImageView
             android:id="@+id/imageView2"
             android:layout_width="206dp"
-            android:layout_height="195dp"
-            android:layout_marginBottom="8dp"
-            android:layout_marginTop="16dp"
-            app:layout_constraintBottom_toTopOf="@+id/editText5"
+            android:layout_height="176dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="1.0"
             app:srcCompat="@drawable/azaduni"
             tools:ignore="ContentDescription" />
 
@@ -101,6 +103,16 @@
             android:layout_marginBottom="16dp"
             android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
+
+        <CheckBox
+            android:id="@+id/checkBox"
+            android:layout_width="218dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:text="مرا به خاطر داشته باش"
+            app:layout_constraintBottom_toTopOf="@+id/button3"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent" />
 

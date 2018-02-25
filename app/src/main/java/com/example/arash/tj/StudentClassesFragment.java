@@ -2,6 +2,7 @@ package com.example.arash.tj;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -47,10 +48,12 @@ public class StudentClassesFragment extends Fragment  {
 
     String pageCode;
 
+
     public StudentClassesFragment() {
         // Required empty public constructor
     }
 
+    Typeface font ;
     TableLayout tl;
     FrameLayout fl ;
     /**
@@ -83,6 +86,7 @@ public class StudentClassesFragment extends Fragment  {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        font = Typeface.createFromAsset(getActivity().getAssets(), "fonts/IRANSansMobile.ttf");
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_student_classes, container, false);
 
@@ -90,6 +94,7 @@ public class StudentClassesFragment extends Fragment  {
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
+
 
         final HorizontalScrollView Scroll = (HorizontalScrollView) view.findViewById(R.id.scroll);
 
@@ -154,6 +159,7 @@ public class StudentClassesFragment extends Fragment  {
                         tdTextView.setPadding(8 , 8 , 8 ,8);
                         tdTextView.setTextSize(16);
                         tdTextView.setGravity(Gravity.CENTER);
+                        tdTextView.setTypeface(font);
                         if (i == 0)
                         {
                             tdTextView.setTextColor(Color.parseColor("#FFFFFF"));
