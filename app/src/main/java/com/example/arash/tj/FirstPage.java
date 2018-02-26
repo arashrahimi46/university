@@ -209,6 +209,9 @@ public class FirstPage extends AppCompatActivity
 
         }else if (id == R.id.message)
         {
+            ft2.replace(R.id.your_placeholder, new Expand());
+            ft2.addToBackStack(null);
+            ft2.commit();
 
         }else if (id == R.id.home)
         {

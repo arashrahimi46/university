@@ -5,9 +5,11 @@
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-
+    <string name="de1">سنسور اکسیژن خراب است</string>
+    <string name="de2">شاسی مشکل دارد</string>
+    <string name="de3">بدنه آسیب دیده است</string>
     <string name="action_settings">Settings</string>
-
+    <string name="mj">Sometimes you dont want an image to appear abruptly on the screen, \n rather you want to apply some kind of animation to the image \n when it transitions from one image to another.\n This is supported by android in the form of ImageSwitcher.</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

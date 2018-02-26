@@ -23,6 +23,10 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".Expand"
+            android:label=""
+            android:theme="@style/AppTheme.NoActionBar" ></activity>
+        <activity
             android:name=".FirstPage"
             android:label="@string/title_activity_first_page"
             android:theme="@style/AppTheme.NoActionBar"></activity>
