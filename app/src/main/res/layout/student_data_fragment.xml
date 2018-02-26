@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -34,8 +33,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/nameFname"
-                android:textColor="#101010"
+                android:text="نام و نام خانوادگی"
+                android:textColor="#04326d"
                 android:textSize="15sp" />
 
             <TextView
@@ -44,7 +43,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text=""
-                android:textColor="#101010"
+                android:textColor="#04326d"
                 android:textSize="15sp" />
         </TableRow>
 
@@ -56,8 +55,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/studnetOcode"
-                android:textColor="#101010"
+                android:text="شماره دانشجویی"
+                android:textColor="#04326d"
                 android:textSize="15sp" />
 
             <TextView
@@ -66,7 +65,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text=""
-                android:textColor="#101010"
+                android:textColor="#04326d"
                 android:textSize="15sp" />
         </TableRow>
 
@@ -78,8 +77,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/father_name"
-                android:textColor="#101010"
+                android:text="نام پدر"
+                android:textColor="#04326d"
                 android:textSize="15sp" />
 
             <TextView
@@ -88,7 +87,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text=""
-                android:textColor="#101010"
+                android:textColor="#04326d"
                 android:textSize="15sp" />
         </TableRow>
 
@@ -100,8 +99,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/major"
-                android:textColor="#101010"
+                android:text="رشته تحصیلی"
+                android:textColor="#04326d"
                 android:textSize="15sp" />
 
             <TextView
@@ -110,7 +109,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text=""
-                android:textColor="#101010"
+                android:textColor="#04326d"
                 android:textSize="15sp" />
         </TableRow>
 
@@ -123,8 +122,8 @@
         android:layout_height="fill_parent"
         android:visibility="invisible"
         tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="8dp"
-        tools:layout_editor_absoluteY="8dp">
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp">
 
     </WebView>
 

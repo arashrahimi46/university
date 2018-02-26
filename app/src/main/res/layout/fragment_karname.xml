@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/frame"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.arash.tj.StudentClassesFragment">
-
-    <!-- TODO: Update blank fragment layout -->
+    tools:context=".karname">
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
@@ -16,16 +13,15 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:foregroundGravity="right"
-            android:scrollbars="none"
-            >
+            android:scrollbars="none">
 
             <HorizontalScrollView
                 android:id="@+id/scroll"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
-                android:scrollbars="none"
-                android:foregroundGravity="right">
+                android:foregroundGravity="right"
+                android:scrollbars="none">
 
                 <TableLayout
                     android:id="@+id/tlGridTable"
@@ -56,7 +52,7 @@
         </ScrollView>
 
         <WebView
-            android:id="@+id/web3"
+            android:id="@+id/web4"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:visibility="invisible"

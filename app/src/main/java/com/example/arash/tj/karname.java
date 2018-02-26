@@ -24,7 +24,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 
-public class StudentClassesFragment extends Fragment  {
+public class karname extends Fragment  {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -37,7 +37,7 @@ public class StudentClassesFragment extends Fragment  {
     String pageCode;
 
 
-    public StudentClassesFragment() {
+    public karname() {
         // Required empty public constructor
     }
 
@@ -53,8 +53,8 @@ public class StudentClassesFragment extends Fragment  {
      * @return A new instance of fragment StudentClassesFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static StudentClassesFragment newInstance(String param1, String param2) {
-        StudentClassesFragment fragment = new StudentClassesFragment();
+    public static karname newInstance(String param1, String param2) {
+        karname fragment = new karname();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -76,7 +76,7 @@ public class StudentClassesFragment extends Fragment  {
                              Bundle savedInstanceState) {
         font = Typeface.createFromAsset(getActivity().getAssets(), "fonts/IRANSansMobile.ttf");
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_student_classes, container, false);
+        return inflater.inflate(R.layout.fragment_karname, container, false);
 
     }
 
@@ -86,14 +86,14 @@ public class StudentClassesFragment extends Fragment  {
 
         final HorizontalScrollView Scroll = (HorizontalScrollView) view.findViewById(R.id.scroll);
 
-         tl = (TableLayout) view.findViewById(R.id.tlGridTable);
+        tl = (TableLayout) view.findViewById(R.id.tlGridTable);
         final WebView webView;
-        webView = (WebView) view.findViewById(R.id.web3);
-        webView.loadUrl("http://enroll.azad.ac.ir/pages/frm_viewsabtenam.aspx");
+        webView = (WebView) view.findViewById(R.id.web4);
+        webView.loadUrl("http://enroll.azad.ac.ir/pages/frm_emtehan_rep.aspx");
         webView.getSettings().setJavaScriptEnabled(true);
         webView.getSettings().setLoadWithOverviewMode(true);
         webView.getSettings().setUseWideViewPort(true);
-        webView.addJavascriptInterface(new StudentClassesFragment.MyJavaScriptInterface(), "HTMLOUT");
+        webView.addJavascriptInterface(new karname.MyJavaScriptInterface(), "HTMLOUT");
         webView.setWebViewClient(new WebViewClient() {
             public void onPageFinished(final WebView view, String url) {
                 webView.loadUrl("javascript:window.HTMLOUT.processHTML('<html>'+document.getElementsByTagName('html')[0].innerHTML+'</html>');");
@@ -104,16 +104,16 @@ public class StudentClassesFragment extends Fragment  {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-              System.out.println(pageCode);
+                System.out.println(pageCode);
 
 
-              /* Find Tablelayout defined in main.xml */
+                /* Find Tablelayout defined in main.xml */
 
-              Document PageHtml = Jsoup.parse(pageCode);
+                Document PageHtml = Jsoup.parse(pageCode);
 
-              Elements trs = PageHtml.getElementById("DataGrid2").getElementsByTag("tr");
+                Elements trs = PageHtml.getElementById("MHG_ClientGrid1").getElementsByTag("tr");
 
-              int i = 0;
+                int i = 0;
                 for (Element tr2 : trs)
                 {
                     Elements tds = tr2.getElementsByTag("td");
@@ -140,14 +140,18 @@ public class StudentClassesFragment extends Fragment  {
 
                         String tdText = td.text();
                         TextView tdTextView = new TextView(getContext());
-                        tdTextView.setText(tdText);
-                        TableRow.LayoutParams lp = new TableRow.LayoutParams(TableRow.LayoutParams.FILL_PARENT, TableRow.LayoutParams.WRAP_CONTENT);
-                        lp.setMargins(100, 4 ,8 , 4);
-                        tdTextView.setLayoutParams(lp);
-                        tdTextView.setPadding(8 , 8 , 8 ,8);
-                        tdTextView.setTextSize(16);
-                        tdTextView.setGravity(Gravity.CENTER);
-                        tdTextView.setTypeface(font);
+
+                          tdTextView.setText(tdText);
+
+                          TableRow.LayoutParams lp = new TableRow.LayoutParams(TableRow.LayoutParams.FILL_PARENT, TableRow.LayoutParams.WRAP_CONTENT);
+
+                          lp.setMargins(100, 4, 8, 4);
+                          tdTextView.setLayoutParams(lp);
+                          tdTextView.setPadding(8, 8, 8, 8);
+                          tdTextView.setTextSize(16);
+                          tdTextView.setGravity(Gravity.CENTER);
+                          tdTextView.setTypeface(font);
+
                         if (i == 0)
                         {
                             tdTextView.setTextColor(Color.parseColor("#FFFFFF"));
