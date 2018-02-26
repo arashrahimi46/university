@@ -5,8 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.example.arash.tj.FirstPage"
-    tools:showIn="@layout/app_bar_first_page">
+    tools:context="com.example.arash.tj.FirstPage">
 
     <ProgressBar
         android:id="@+id/progressBar3"
@@ -23,10 +22,10 @@
     <TableLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        tools:layout_editor_absoluteX="8dp"
-        tools:layout_editor_absoluteY="8dp"
         android:layout_margin="0dp"
-        tools:ignore="MissingConstraints">
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="8dp">
 
         <TableRow android:padding="16dp">
 
@@ -35,7 +34,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="نام و نام خانوادگی"
+                android:text="@string/nameFname"
                 android:textColor="#101010"
                 android:textSize="15sp" />
 
@@ -57,7 +56,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="شماره دانشجویی"
+                android:text="@string/studnetOcode"
                 android:textColor="#101010"
                 android:textSize="15sp" />
 
@@ -79,7 +78,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="نام پدر"
+                android:text="@string/father_name"
                 android:textColor="#101010"
                 android:textSize="15sp" />
 
@@ -101,7 +100,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="رشته تحصیلی"
+                android:text="@string/major"
                 android:textColor="#101010"
                 android:textSize="15sp" />
 
@@ -114,8 +113,6 @@
                 android:textColor="#101010"
                 android:textSize="15sp" />
         </TableRow>
-
-
 
 
     </TableLayout>

@@ -8,6 +8,20 @@
     tools:context=".MassagePageFragment">
 
     <!-- TODO: Update blank fragment layout -->
+
+    <ProgressBar
+        android:id="@+id/progressBar4"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical|center" />
+
+    <WebView
+        android:id="@+id/web3"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:visibility="invisible" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -22,7 +36,8 @@
 
 
             android:backgroundTint="#6983d0"
-            android:scrollbars="none|horizontal|vertical" />
+            android:scrollbars="none|horizontal|vertical"
+            android:textDirection="rtl" />
     </LinearLayout>
 
 </FrameLayout>

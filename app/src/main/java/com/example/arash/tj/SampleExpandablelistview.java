@@ -1,160 +1,132 @@
 package com.example.arash.tj;
 
-import android.app.Activity;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Objects;
+
 import android.content.Context;
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
-import android.text.Html;
+import android.graphics.Color;
+import android.graphics.Typeface;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
-import android.widget.ExpandableListAdapter;
-import android.widget.CompoundButton.OnCheckedChangeListener;
-import java.util.HashMap;
+import android.widget.TextView;
 
-public class SampleExpandablelistview extends BaseExpandableListAdapter implements ExpandableListAdapter {
-    public Context context;
-    CheckBox checkBox;
-    private LayoutInflater vi;
-    private String[][] data;
-    int _objInt;
-    public static Boolean checked[] = new Boolean[1];
+public class SampleExpandablelistview extends BaseExpandableListAdapter {
 
-    HashMap<Long,Boolean> checkboxMap = new HashMap<Long,Boolean>();
-    private static final int GROUP_ITEM_RESOURCE = R.layout.expandgroupitem;
-    private static final int CHILD_ITEM_RESOURCE = R.layout.expandchildbox;
-    public String []check_string_array;
+    private Context _context;
+    private List<String> _listDataHeader; // header titles
+    private List<String> _listMessageType; // header titles
+    // child data in format of header title, child title
+    private HashMap<String, List<String>> _listDataChild;
 
-    public SampleExpandablelistview(Context context, Activity activity, String[][] data) {
-        this.data = data;
-        this.context = context;
-       /// vi = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        vi = LayoutInflater.from(context);
-        _objInt = data.length;
-        check_string_array = new String[_objInt];
-        popolaCheckMap();
-    }
-    public void popolaCheckMap(){
-
-        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
-        String buffer = null;
-
-        for(int i=0; i<_objInt; i++){
-            buffer = settings.getString(String.valueOf((int)i),"false");
-            if(buffer.equals("false"))
-                checkboxMap.put((long)i, false);
-            else checkboxMap.put((long)i, true);
-        }
+    public SampleExpandablelistview(Context context, List<String> listDataHeader,
+                                 HashMap<String, List<String>> listChildData ,List<String> ListMessageType ) {
+        this._context = context;
+        this._listDataHeader = listDataHeader;
+        this._listDataChild = listChildData;
+        this._listMessageType = ListMessageType;
     }
 
-    public class CheckListener implements OnCheckedChangeListener {
-
-        long pos;
-
-        public void setPosition(long p){
-            pos = p;
-        }
-
-        @Override
-        public void onCheckedChanged(CompoundButton buttonView,
-                                     boolean isChecked) {
-            Log.i("checkListenerChanged", String.valueOf(pos)+":"+String.valueOf(isChecked));
-            checkboxMap.put(pos, isChecked);
-            if(isChecked == true) check_string_array[(int)pos] = "true";
-            else                                  check_string_array[(int)pos] = "false";
-            // save checkbox state of each group
-            SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
-            SharedPreferences.Editor preferencesEditor = settings.edit();
-            preferencesEditor.putString(String.valueOf((int)pos), check_string_array[(int)pos]);
-            preferencesEditor.commit();
-        }
+    @Override
+    public Object getChild(int groupPosition, int childPosititon) {
+        return this._listDataChild.get(this._listDataHeader.get(groupPosition))
+                .get(childPosititon);
     }
-    public String getChild(int groupPosition, int childPosition) {
-        return data[groupPosition][childPosition];
-    }
-
+    @Override
     public long getChildId(int groupPosition, int childPosition) {
         return childPosition;
     }
 
+    @Override
+    public View getChildView(int groupPosition, final int childPosition,
+                             boolean isLastChild, View convertView, ViewGroup parent) {
+
+        final String childText = (String) getChild(groupPosition, childPosition);
+
+        if (convertView == null) {
+            LayoutInflater infalInflater = (LayoutInflater) this._context
+                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            convertView = infalInflater.inflate(R.layout.expandchildbox, null);
+        }
+        Typeface custom_font = Typeface.createFromAsset(_context.getAssets(),  "fonts/IRANSansMobile.ttf");
+        TextView txtListChild = (TextView) convertView
+                .findViewById(R.id.Detailstxt);
+
+        txtListChild.setTypeface(custom_font);
+        txtListChild.setText(childText);
+        return convertView;
+    }
+
+    @Override
     public int getChildrenCount(int groupPosition) {
-        return data[groupPosition].length;
+        Log.i("groupPosition", String.valueOf(groupPosition));
+        return this._listDataChild.get(this._listDataHeader.get(groupPosition)).size();
     }
 
-    public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
-        View v = convertView;
-        String child = getChild(groupPosition, childPosition);
-        int id_res = 0;
-        if(groupPosition == 0){
-            if(childPosition == 0); id_res = R.string.mj;
-
-        }
-        else if(groupPosition == 1){
-            if(childPosition == 0); id_res = R.string.mj;
-
-        }
-        else if(groupPosition == 2){
-            if(childPosition == 0);  id_res= R.string.mj;
-
-        }
-
-        if (child != null) {
-            v = vi.inflate(R.layout.expandchildbox, parent,false);
-            ViewHolder holder = new ViewHolder(v);
-            holder.text2.setText(Html.fromHtml(child));
-            holder.text2.setText(id_res);
-        }
-        return v;
+    @Override
+    public Object getGroup(int groupPosition) {
+        return this._listDataHeader.get(groupPosition);
     }
-    public String getGroup(int groupPosition) {
-        return "group-" + groupPosition;
+
+
+    public Object getGroup2(int groupPosition) {
+        return this._listMessageType.get(groupPosition);
     }
+
+
+
+    @Override
     public int getGroupCount() {
-        return data.length;
+        return this._listDataHeader.size();
     }
+
+    @Override
     public long getGroupId(int groupPosition) {
         return groupPosition;
     }
-    public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
-        View v = convertView;
-        String group = null;
-        int details_res = 0;
 
-        long group_id = getGroupId(groupPosition);
-        if(group_id == 0){
-            group = "خطای p1400";
-            details_res = R.string.de1;
-        }
-        else if(group_id == 1){
-           group = "خطای b1400";
-           details_res = R.string.de2;
-        }
-        else if(group_id == 2){
-            group = "خطای c1890";
-            details_res = R.string.de3;
+    @Override
+    public View getGroupView(int groupPosition, boolean isExpanded,
+                             View convertView, ViewGroup parent) {
+        String headerTitle = (String) getGroup(groupPosition);
+        String messageType = (String)getGroup2(groupPosition);
+        if (convertView == null) {
+            LayoutInflater infalInflater = (LayoutInflater) this._context
+                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            convertView = infalInflater.inflate(R.layout.expandgroupitem, null);
         }
 
-        if (group != null) {
-            v = vi.inflate(R.layout.expandgroupitem, parent, false);
-            ViewHolder holder = new ViewHolder(v);
-
-            holder.text.setText(Html.fromHtml(group));
-           // holder.checkbox.setFocusable(false);
-            CheckListener checkL = new CheckListener();
-            checkL.setPosition(group_id);
-           // holder.checkbox.setOnCheckedChangeListener(checkL);
-           // holder.checkbox.setChecked(checkboxMap.get(group_id));
+        Typeface custom_font = Typeface.createFromAsset(_context.getAssets(),  "fonts/IRANSansMobile.ttf");
+        TextView lblListHeader = (TextView) convertView
+                .findViewById(R.id.Subjecttxt);
+        TextView msgType = (TextView)convertView.findViewById(R.id.Sendertxt);
+        msgType.setTypeface(custom_font);
+        msgType.setText("نوع پیام :" + " " + messageType);
+        lblListHeader.setTypeface(null, Typeface.BOLD);
+        lblListHeader.setTypeface(custom_font);
+        if (Objects.equals(messageType, "پیام خصوصی"))
+        {
+        msgType.setTextColor(Color.parseColor("#006600"));
+        }else
+        {
+            msgType.setTextColor(Color.parseColor("#800000"));
         }
-        return v;
+        lblListHeader.setText(headerTitle);
+
+        return convertView;
     }
-    public boolean isChildSelectable(int groupPosition, int childPosition) {
-        return true;
-    }
+
+    @Override
     public boolean hasStableIds() {
+        return false;
+    }
+
+    @Override
+    public boolean isChildSelectable(int groupPosition, int childPosition) {
         return true;
     }
 }
