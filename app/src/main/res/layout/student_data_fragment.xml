@@ -4,14 +4,11 @@
     android:id="@+id/frame"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/customframe"
-    tools:context="com.example.arash.tj.StudentClassesFragment">
+    tools:context="com.example.arash.tj.StudentDataFragment">
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/customframe"
-        android:backgroundTint="@drawable/customframe"
         android:backgroundTintMode="src_over">
 
         <ProgressBar
@@ -30,8 +27,6 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:layout_margin="0dp"
-            android:background="@drawable/customframe"
-            android:backgroundTint="@drawable/customframe"
             tools:ignore="MissingConstraints"
             tools:layout_editor_absoluteX="8dp"
             tools:layout_editor_absoluteY="8dp">
@@ -130,7 +125,6 @@
             android:id="@+id/web1"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:background="@drawable/customframe"
             android:visibility="invisible"
             tools:ignore="MissingConstraints"
             tools:layout_editor_absoluteX="0dp"
