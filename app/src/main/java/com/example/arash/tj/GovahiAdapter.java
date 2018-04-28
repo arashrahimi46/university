@@ -1,6 +1,8 @@
 package com.example.arash.tj;
 
+import android.content.Context;
 import android.graphics.Movie;
+import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,12 +18,22 @@ import java.util.List;
 public class GovahiAdapter  extends RecyclerView.Adapter<GovahiAdapter.MyViewHolder>{
     private List<Govahi> moviesList;
 
+
+    private Context _context;
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView title, year, genre;
+        public TextView title, year, genre , status;
+
+        Typeface custom_font = Typeface.createFromAsset(itemView.getContext().getAssets(), "fonts/IRANSansMobile.ttf");
+
+
 
         public MyViewHolder(View view) {
             super(view);
             title = (TextView) view.findViewById(R.id.textView4);
+            status =(TextView)view.findViewById(R.id.textView);
+
+            title.setTypeface(custom_font);
+            status.setTypeface(custom_font);
         }
     }
 
@@ -43,8 +55,9 @@ public class GovahiAdapter  extends RecyclerView.Adapter<GovahiAdapter.MyViewHol
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
         Govahi movie = moviesList.get(position);
-        holder.title.setText(movie.getTitle());
 
+        holder.title.setText(movie.getTitle());
+        holder.status.setText(movie.getStatus());
     }
 
     @Override

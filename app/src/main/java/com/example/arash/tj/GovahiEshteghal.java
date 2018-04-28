@@ -144,7 +144,8 @@ public class GovahiEshteghal extends Fragment {
                     else
                     {
                         Element td = tr.getElementsByTag("td").get(4);
-                        Govahi movie = new Govahi(td.text());
+                        Element status = tr.getElementsByTag("td").get(3);
+                        Govahi movie = new Govahi(getActivity() , td.text() , status.text());
                         govahiList.add(movie);
                     }
                     i++;

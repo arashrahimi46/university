@@ -1,131 +1,143 @@
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/frame"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.example.arash.tj.FirstPage">
+    android:background="@drawable/customframe"
+    tools:context="com.example.arash.tj.StudentClassesFragment">
 
-    <ProgressBar
-        android:id="@+id/progressBar3"
-        style="?android:attr/progressBarStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="64dp"
-        android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/customframe"
+        android:backgroundTint="@drawable/customframe"
+        android:backgroundTintMode="src_over">
 
-
-    <TableLayout
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_margin="0dp"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="8dp"
-        tools:layout_editor_absoluteY="8dp">
-
-        <TableRow android:padding="16dp">
-
-            <TextView
-                android:id="@+id/t1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="نام و نام خانوادگی"
-                android:textColor="#04326d"
-                android:textSize="15sp" />
-
-            <TextView
-                android:id="@+id/studnetName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text=""
-                android:textColor="#04326d"
-                android:textSize="15sp" />
-        </TableRow>
+        <ProgressBar
+            android:id="@+id/progressBar3"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="64dp"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
 
 
-        <TableRow android:padding="16dp">
+        <TableLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_margin="0dp"
+            android:background="@drawable/customframe"
+            android:backgroundTint="@drawable/customframe"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="8dp"
+            tools:layout_editor_absoluteY="8dp">
 
-            <TextView
-                android:id="@+id/t2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="شماره دانشجویی"
-                android:textColor="#04326d"
-                android:textSize="15sp" />
+            <TableRow android:padding="16dp">
 
-            <TextView
-                android:id="@+id/studentCode"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text=""
-                android:textColor="#04326d"
-                android:textSize="15sp" />
-        </TableRow>
+                <TextView
+                    android:id="@+id/t1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="نام و نام خانوادگی"
+                    android:textColor="#04326d"
+                    android:textSize="15sp" />
 
-
-        <TableRow android:padding="16dp">
-
-            <TextView
-                android:id="@+id/t3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="نام پدر"
-                android:textColor="#04326d"
-                android:textSize="15sp" />
-
-            <TextView
-                android:id="@+id/studentFather"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text=""
-                android:textColor="#04326d"
-                android:textSize="15sp" />
-        </TableRow>
+                <TextView
+                    android:id="@+id/studnetName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text=""
+                    android:textColor="#04326d"
+                    android:textSize="15sp" />
+            </TableRow>
 
 
-        <TableRow android:padding="16dp">
+            <TableRow android:padding="16dp">
 
-            <TextView
-                android:id="@+id/t4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="رشته تحصیلی"
-                android:textColor="#04326d"
-                android:textSize="15sp" />
+                <TextView
+                    android:id="@+id/t2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="شماره دانشجویی"
+                    android:textColor="#04326d"
+                    android:textSize="15sp" />
 
-            <TextView
-                android:id="@+id/studentMajor"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text=""
-                android:textColor="#04326d"
-                android:textSize="15sp" />
-        </TableRow>
-
-
-    </TableLayout>
-
-    <WebView
-        android:id="@+id/web1"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:visibility="invisible"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="0dp">
-
-    </WebView>
+                <TextView
+                    android:id="@+id/studentCode"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text=""
+                    android:textColor="#04326d"
+                    android:textSize="15sp" />
+            </TableRow>
 
 
-</android.support.constraint.ConstraintLayout>
+            <TableRow android:padding="16dp">
+
+                <TextView
+                    android:id="@+id/t3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="نام پدر"
+                    android:textColor="#04326d"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/studentFather"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text=""
+                    android:textColor="#04326d"
+                    android:textSize="15sp" />
+            </TableRow>
+
+
+            <TableRow android:padding="16dp">
+
+                <TextView
+                    android:id="@+id/t4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="رشته تحصیلی"
+                    android:textColor="#04326d"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/studentMajor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text=""
+                    android:textColor="#04326d"
+                    android:textSize="15sp" />
+            </TableRow>
+
+
+        </TableLayout>
+
+        <WebView
+            android:id="@+id/web1"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:background="@drawable/customframe"
+            android:visibility="invisible"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="0dp">
+
+        </WebView>
+
+
+    </android.support.constraint.ConstraintLayout>
+</FrameLayout>
